@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let listOfName = ['Alex', 'Bill', 'Cook', 'Darren'];
+        listOfName[4] = 'Ellen';             //push pop 最重要 
+        listOfName.push('Fox', 'Gina');
+        listOfName[0] = 'Allen';
+        listOfName[2] = 'Carl';
+        listOfName.pop()
+        let name = listOfName.pop()
+        console.log(name)
+        console.log(listOfName);
+        listOfName.shift();
+        console.log(listOfName)
+        name = listOfName.shift();
+        console.log(name);
+        console.log(listOfName);
+        name = listOfName.pop()
+        console.log(name)
+        listOfName.unshift(name)
+        console.log(listOfName)
+
+        //['Ellen','Carl','Darren']
+        listOfName.splice(0, 0, 'Alex'); // (指定索引位置,刪除資料數量,寫入資料)
+        console.log(listOfName)
+
+        let arrRemoveValue = listOfName.splice(1, 2, "Bill")
+        console.log(listOfName)
+
+
+
+
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
