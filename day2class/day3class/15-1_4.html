@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let str05 = `如何讓你遇見我
+
+在我最美麗的時刻
+
+為這
+
+我已在佛前 求了五百年
+
+求他讓我們結一段塵緣
+
+佛於是把我化作一棵樹
+
+長在你必經的路旁
+
+陽光下慎重地開滿了花
+
+朵朵都是我前世的盼望
+
+當你走近 請你細聽
+
+那顫抖的葉是我等待的熱情
+
+而當你終於無視地走過
+
+在你身後落了一地的
+
+朋友啊 那不是花瓣
+
+是我凋零的心
+
+——席慕蓉《一朵開花的樹》`;
+        let re05 = /\n|,|\.|，｜。|！/;
+        arr05 = str05.split(re05);
+        for (let key in arr05) {
+            if (arr05[key] == '') delete arr05[key];
+
+        }
+        let arrTmp = [];
+        for (let value of arr05) {
+            if (value != undefined) arrTmp.push(value)
+        }
+        arr05 = arrTmp;
+        console.log(arr05);
+
+    </script>
+
+</body>
+
+</html>

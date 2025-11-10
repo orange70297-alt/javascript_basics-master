@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let str04 = `background-image:url(https://stickershop.line-scdn.net/stickershop/v1/sticker/318800562/android/sticker.png;compress=true);
+background-image:url(https://stickershop.line-scdn.net/stickershop/v1/sticker/318800558/android/sticker.png;compress=true);
+background-image:url(https://stickershop.line-scdn.net/stickershop/v1/sticker/318800559/android/sticker.png;compress=true);`;
+        let re04 = /https?:\/\/stickershop\.line-scdn\.net\/stickershop\/v1\/sticker\/([0-9]+)\/android\/sticker\.png/g
+
+        let match04 = null;
+        while ((match04 = re04.exec(str04)) != null) {
+            console.log(match04[0]);
+            console.log(match04[1]);
+        }
+
+    </script>
+
+</body>
+
+</html>
