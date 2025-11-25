@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,23 +13,34 @@
                 console.log('Hello World!');
             }
         )();
-    
+
         //顯示在 <body> 當中
         (
             function () {
                 document.write('Good job!');
             }
         )();
-    
+
         //跳出訊息
         (
             function (name) {
                 alert('Good job! ' + name);
             }
         )('Darren');
-    </script>    
+
+        var a = 10;
+
+        (function () {
+            var a = 20; // 只在這個 IIFE 作用域
+            console.log(a); // 20
+        })();
+
+        console.log(a); // 10
+    </script>
 </head>
+
 <body>
-    
+
 </body>
+
 </html>
