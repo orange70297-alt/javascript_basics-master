@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <title>YouBike + Leaflet Demo</title>
+
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <style>
+        #map {
+            height: 820px;
+            margin-top: 10px;
+        }
+
+        #btnRefresh {
+            padding: 8px 12px;
+            background: #007bff;
+            border: none;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        #btnRefresh:hover {
+            background: #3395ff;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="text-align: center">
+        <h2>YouBike 站點地圖（每 1 分鐘自動更新）</h2>
+        <button id="btnRefresh">立即更新資料</button>
+
+    </div>
+
+
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // 初始化地圖
+        let map = L.map('map').setView([25.046, 121.517], 13);
+
+        // 加入 OSM 圖層
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: "© OpenStreetMap"
+        }).addTo(map);
+
+        // marker 群組（用來清除舊資料）
+        let layerGroup = L.layerGroup().addTo(map);
+
+        const bikeIcon = L.icon({
+            iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png", // 大頭針圖示
+            iconSize: [32, 32], // 可調整大小
+            iconAnchor: [16, 32], // 讓針尖對準位置
+            popupAnchor: [0, -32] // 讓 popup 出現在針上方
+        });
+        // 取得 YouBike API 資料
+        function getYouBikeData() {
+
+            // 清除舊圖層
+            layerGroup.clearLayers();
+
+            fetch("https://tcgbusfs.blob.core.windows.net/blobyoubike/YouBikeTP.json")
+                .then(r => r.json())
+                .then(obj => {
+
+                    const stations = obj.retVal;
+
+                    // 每個站點建立 Marker
+                    Object.keys(stations).forEach(key => {
+                        let s = stations[key];
+
+                        let lat = Number(s.lat);
+                        let lng = Number(s.lng);
+
+                        let marker = L.marker([lat, lng], { icon: bikeIcon })
+                            .bindPopup(`
+                        <b>${s.sna}</b><br>
+                        站點編號：${s.sno}<br>
+                        可借車輛：${s.sbi}<br>
+                        可還車位：${s.bemp}<br>
+                    `);
+
+                        marker.addTo(layerGroup);
+                    });
+
+                    console.log("YouBike data updated:", new Date().toLocaleTimeString());
+                });
+        }
+
+        // 手動更新按鈕
+        document.querySelector("#btnRefresh").addEventListener("click", getYouBikeData);
+
+        // 首次執行
+        getYouBikeData();
+
+        // 每 1 分鐘自動更新
+        setInterval(getYouBikeData, 60000);
+    </script>
+
+</body>
+
+</html>
